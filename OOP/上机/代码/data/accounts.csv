@@ -1,0 +1,4 @@
+username,password,shoppinglist_path
+user3,user3,data/user3.sl,data/user3.ol
+user1,qwerty,data/user1.sl,data/user1.ol
+user2,123456,data/user2.sl,data/user2.ol

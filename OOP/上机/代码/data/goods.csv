@@ -1,0 +1,8 @@
+name,price,stock,id,description,is_discount,is_reduction,both,discount,spend,reduction,discount_end_time,reduction_end_time
+apple,1.5,76,1,A round fruit,1,1,1,80,100,10,1747843199,1747843199
+banana,0.5,50,2,A long curved fruit,1,1,0,90,100,10,1747843199,1747843199
+orange,2,75,3,A round citrus fruit,0,0,0,0,0,0,1747843199,1747843199
+grape,3,619,4,A small sweet fruit,0,0,0,0,0,0,1747843199,1747843199
+pear,2.5,120,5,A juicy fruit,0,0,0,0,0,0,1747843199,1747843199
+pencil,1.25,9500,9,normal writing tool,1,1,0,90,150,25,1747843199,1747843199
+paper,0.25,7000,11,a kind of material,1,1,1,20,100,10,1748604958,1748604964
