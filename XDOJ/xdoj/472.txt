@@ -1,0 +1,24 @@
+void AdjustSortTable(int aSortTable[], struct medalCountry aMedalCountry[], int iCounter, int iNo, int iMedalType)
+{
+    int *aS = aSortTable;
+    struct medalCountry *aMC = aMedalCountry;
+    int i, j, tmp, condition;
+    for (i = 0; i < iCounter - 1; ++i)
+        for (j = 0; j < iCounter - 1 - i; ++j)
+        {
+            condition =
+                aMC[aS[j + 1]].iMedalNum[GOLDMEDAL] > aMC[aS[j]].iMedalNum[GOLDMEDAL] ||
+                (aMC[aS[j + 1]].iMedalNum[GOLDMEDAL] == aMC[aS[j]].iMedalNum[GOLDMEDAL] &&
+                 (aMC[aS[j + 1]].iMedalNum[SILVERMEDAL] > aMC[aS[j]].iMedalNum[SILVERMEDAL] ||
+                  (aMC[aS[j + 1]].iMedalNum[SILVERMEDAL] == aMC[aS[j]].iMedalNum[SILVERMEDAL] &&
+                   (aMC[aS[j + 1]].iMedalNum[BRONZEMEDAL] > aMC[aS[j]].iMedalNum[BRONZEMEDAL] ||
+                    (aMC[aS[j + 1]].iMedalNum[BRONZEMEDAL] == aMC[aS[j]].iMedalNum[BRONZEMEDAL] &&
+                     strcmp(aMC[aS[j + 1]].sName, aMC[aS[j]].sName) < 0)))));
+            if (condition)
+            {
+                tmp = aSortTable[j + 1];
+                aSortTable[j + 1] = aSortTable[j];
+                aSortTable[j] = tmp;
+            }
+        }
+}

@@ -1,0 +1,35 @@
+void paint(int n, int (*m)[4], int *a)
+{
+    int x, y, k, p;
+    int cnt[101] = {0};
+    int mp[101][101] = {0};
+    for (k = 0; k < n; ++k)
+    {
+        for (x = m[k][0] + 1; x <= m[k][2]; ++x)
+            for (y = m[k][1] + 1; y <= m[k][3]; ++y)
+                ++mp[x][y];
+    }
+    for (x = 1; x <= 100; ++x)
+        for (y = 1; y <= 100; ++y)
+            ++cnt[mp[x][y]];
+
+    int flag = 1;
+    for (p = 0, k = 100; k >= 0; --k)
+        if (flag)
+        {
+            if (cnt[k])
+            {
+                flag = 0;
+                a[p++] = k;
+                a[p++] = cnt[k];
+            }
+        }
+        else
+        {
+            a[p++] = k;
+            if (cnt[k])
+                a[p++] = cnt[k];
+            else
+                a[p++] = 0;
+        }
+}

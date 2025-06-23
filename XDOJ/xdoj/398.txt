@@ -1,0 +1,43 @@
+char *compress(char *src)
+{
+    char *s = (char *)calloc(sizeof(src) / sizeof(char) + 3, sizeof(char));
+    int i, cnt, p;
+    for (s[0] = src[0], p = 1, cnt = 1, i = 1; i <= strlen(src); ++i)
+    {
+        if (src[i] != src[i - 1] || src[i] == '\0')
+        {
+            if (cnt == 1)
+            {
+                s[p] = src[i];
+                ++p;
+            }
+            else if (cnt == 2)
+            {
+                s[p] = s[p - 1];
+                ++p;
+                s[p] = src[i];
+                ++p;
+            }
+            else if (cnt <= 9)
+            {
+                s[p] = cnt + '0';
+                ++p;
+                s[p] = src[i];
+                ++p;
+            }
+            else
+            {
+                s[p] = cnt / 10 + '0';
+                ++p;
+                s[p] = cnt % 10 + '0';
+                ++p;
+                s[p] = src[i];
+                ++p;
+            }
+            cnt = 1;
+        }
+        else
+            ++cnt;
+    }
+    return s;
+}

@@ -1,0 +1,36 @@
+int function(int a, int b)
+{
+    int i, tmp, bit, sum, p, ans = 0;
+    if (a > b)
+    {
+        tmp = a;
+        a = b;
+        b = tmp;
+    }
+    if (a < 100)
+        a = 100;
+    for (i = a; i <= b; ++i)
+    {
+        tmp = i;
+        sum = 0;
+        while (tmp)
+        {
+            p = 1;
+            if (i < 1000)
+                bit = 3;
+            else
+                bit = 4;
+            while (bit)
+            {
+                p *= (tmp % 10);
+                --bit;
+            }
+
+            sum += p;
+            tmp /= 10;
+        }
+        if (sum == i)
+            ++ans;
+    }
+    return ans;
+}

@@ -1,0 +1,570 @@
+System has been initialized.
+Welcome to shopping system! Enter "help" for more information.
+>>> Available commands:
+    help:  show help information
+    exit:  exit the system
+    li:    login
+    li su: login as admin
+    lo:    logout
+    sp:    sign up
+    cp:    change password
+    ca:    change account
+    ca su: change account as admin
+    vig:   view available goods
+    shg:   search for goods
+    ads:   add a kind of goods to shopping list
+    sbs:   subtract amount of a kind of goods in shopping list
+    sts:   set amount of a kind of goods in shopping list
+    rms:   remove a kind of goods from shopping list
+    cls:   clear shopping list
+    vis:   view shopping list
+    buy:   buy [id] [amount]: place an order for specific goods
+    plo:   place an order
+    vio:   check order status
+    sho:   search for orders
+    rmo:   remove an order(if possible)
+    clo:   cancel an order(if possible)
+    cho:   change receiver, address and phone of an order
+>>> Please enter your username: Please enter your password: Wrong username or password. Please try again.
+>>> Please enter your username: Please enter your password: Wrong username or password. Please try again.
+>>> You are not logged in. Please login first.
+>>> Unknown command: admin
+Enter "help" to show available commands.
+>>> Unknown command: newadmin
+Enter "help" to show available commands.
+>>> You are not logged in. Please login first.
+>>> You are not logged in. Please login first.
+>>> Unknown command: admin
+Enter "help" to show available commands.
+>>> Unknown command: 123456
+Enter "help" to show available commands.
+>>> Unknown command: 123456
+Enter "help" to show available commands.
+>>> You are not logged in.
+>>> Please enter your username: User already registered. Please try another username.
+>>> Please enter your username: Please enter your password: Please cofirm your password: Sign up successful.
+>>> Please enter your username: Please enter your password: Filename has been changed to data/user.sl
+Filename has been changed to data/user.ol
+Login successful.
+>>> Please enter your old password: Please enter your new password: Please cofirm your new password: Password changed successfully.
+>>> Unknown command: ************************************
+Enter "help" to show available commands.
+>>> Available goods:
+----------------------------------------------------------------
+name:        apple
+price:       1.5
+stock:       76
+id:          1
+description: A round fruit
+promotion: 
+    discount: %80 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are stackable
+----------------------------------------------------------------
+name:        banana
+price:       0.5
+stock:       50
+id:          2
+description: A long curved fruit
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        orange
+price:       2
+stock:       75
+id:          3
+description: A round citrus fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        grape
+price:       3
+stock:       619
+id:          4
+description: A small sweet fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pear
+price:       2.5
+stock:       120
+id:          5
+description: A juicy fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pencil
+price:       1.25
+stock:       9500
+id:          9
+description: normal writing tool
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 150 minus 25
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        paper
+price:       0.25
+stock:       7000
+id:          11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+----------------------------------------------------------------
+>>> Please enter the keyword to search for: ----------------------------------------------------------------
+name:       apple
+price:      1.5
+stock:      76
+id:         1
+description:A round fruit
+promotion: 
+    discount: %80 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are stackable
+----------------------------------------------------------------
+name:       pear
+price:      2.5
+stock:      120
+id:         5
+description:A juicy fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        paper
+price:       0.25
+stock:       7000
+id:         11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+----------------------------------------------------------------
+>>> You are not authorized to add goods.
+>>> You are not authorized to remove goods.
+>>> You are not authorized to update goods.
+>>> Logout successful.
+Please enter your username: Please enter your password: Login successful.
+Welcome admin!
+>>> Please enter the name of the goods: Please enter the price of the goods: Please enter the stock of the goods: Please enter the description of the goods: Do you want to add a promotion tag? (y/n): Goods added successfully.
+>>> Please enter the id of the goods to update: Invalid input. Please try again.
+>>> Available goods:
+----------------------------------------------------------------
+name:        apple
+price:       1.5
+stock:       76
+id:          1
+description: A round fruit
+promotion: 
+    discount: %80 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are stackable
+----------------------------------------------------------------
+name:        banana
+price:       0.5
+stock:       50
+id:          2
+description: A long curved fruit
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        orange
+price:       2
+stock:       75
+id:          3
+description: A round citrus fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        grape
+price:       3
+stock:       619
+id:          4
+description: A small sweet fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pear
+price:       2.5
+stock:       120
+id:          5
+description: A juicy fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pencil
+price:       1.25
+stock:       9500
+id:          9
+description: normal writing tool
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 150 minus 25
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        paper
+price:       0.25
+stock:       7000
+id:          11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+----------------------------------------------------------------
+name:        computer
+price:       0
+stock:       50
+id:          17
+description: a kind of personal device
+promotion: 
+    none
+----------------------------------------------------------------
+>>> Please enter the id of the goods to update: Invalid input. Please try again.
+>>> Unknown command: 6000
+Enter "help" to show available commands.
+>>> Unknown command: 100
+Enter "help" to show available commands.
+>>> >>> Unknown command: y
+Enter "help" to show available commands.
+>>> Unknown command: y
+Enter "help" to show available commands.
+>>> Unknown command: 10
+Enter "help" to show available commands.
+>>> >>> Unknown command: y
+Enter "help" to show available commands.
+>>> Unknown command: 1000
+Enter "help" to show available commands.
+>>> Unknown command: 30
+Enter "help" to show available commands.
+>>> Unknown command: y
+Enter "help" to show available commands.
+>>> Available goods:
+----------------------------------------------------------------
+name:        apple
+price:       1.5
+stock:       76
+id:          1
+description: A round fruit
+promotion: 
+    discount: %80 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are stackable
+----------------------------------------------------------------
+name:        banana
+price:       0.5
+stock:       50
+id:          2
+description: A long curved fruit
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        orange
+price:       2
+stock:       75
+id:          3
+description: A round citrus fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        grape
+price:       3
+stock:       619
+id:          4
+description: A small sweet fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pear
+price:       2.5
+stock:       120
+id:          5
+description: A juicy fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pencil
+price:       1.25
+stock:       9500
+id:          9
+description: normal writing tool
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 150 minus 25
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        paper
+price:       0.25
+stock:       7000
+id:          11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+----------------------------------------------------------------
+name:        computer
+price:       0
+stock:       50
+id:          17
+description: a kind of personal device
+promotion: 
+    none
+----------------------------------------------------------------
+>>> Please enter the id of the goods to remove: Failed to remove goods. No such kind of goods.
+>>> Please enter the id of the goods to remove: Goods removed successfully.
+>>> Unknown command: ************************************
+Enter "help" to show available commands.
+>>> You are already logged in as admin.
+>>> Unknown command: user
+Enter "help" to show available commands.
+>>> Unknown command: 123
+Enter "help" to show available commands.
+>>> Shopping list is empty.
+>>> Available goods:
+----------------------------------------------------------------
+name:        apple
+price:       1.5
+stock:       76
+id:          1
+description: A round fruit
+promotion: 
+    discount: %80 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 100 minus 10
+    end time: 2025-05-21 23:59:59
+    discounts are stackable
+----------------------------------------------------------------
+name:        orange
+price:       2
+stock:       75
+id:          3
+description: A round citrus fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        grape
+price:       3
+stock:       619
+id:          4
+description: A small sweet fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pear
+price:       2.5
+stock:       120
+id:          5
+description: A juicy fruit
+promotion: 
+    none
+----------------------------------------------------------------
+name:        pencil
+price:       1.25
+stock:       9500
+id:          9
+description: normal writing tool
+promotion: 
+    discount: %90 off
+    end time: 2025-05-21 23:59:59
+    reduction: every 150 minus 25
+    end time: 2025-05-21 23:59:59
+    discounts are not stackable
+----------------------------------------------------------------
+name:        paper
+price:       0.25
+stock:       7000
+id:          11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+----------------------------------------------------------------
+name:        computer
+price:       0
+stock:       50
+id:          17
+description: a kind of personal device
+promotion: 
+    none
+----------------------------------------------------------------
+>>> Please enter the id of the goods to add: Please enter the amount of the goods to add: success
+>>> Shopping list:
+----------------------------------------------------------------
+name: paper
+price: 0.250000
+stock: 7000
+id: 11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+amount : 500
+----------------------------------------------------------------
+>>> Please enter the id of the goods to subtract: Please enter the amount of the goods to subtract: success
+>>> Shopping list:
+----------------------------------------------------------------
+name: paper
+price: 0.250000
+stock: 7000
+id: 11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+amount : 400
+----------------------------------------------------------------
+>>> Please enter the id of the goods to set: Please enter the amount of the goods to set: success
+>>> Shopping list:
+----------------------------------------------------------------
+name: paper
+price: 0.250000
+stock: 7000
+id: 11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+amount : 600
+----------------------------------------------------------------
+>>> Please enter the id of the goods to set: Please enter the amount of the goods to set: Are you sure want to remove this item from shopping list? (y/n): 
+Operation cancelled.
+>>> Shopping list:
+----------------------------------------------------------------
+name: paper
+price: 0.250000
+stock: 7000
+id: 11
+description: a kind of material
+promotion: 
+    discount: %20 off
+    end time: 2025-05-30 19:35:58
+    reduction: every 100 minus 10
+    end time: 2025-05-30 19:36:04
+    discounts are stackable
+amount : 600
+----------------------------------------------------------------
+>>> Please enter the id of the goods to add: Please enter the amount of the goods to add: success
+>>> Please enter the id of the goods to remove: Item 1 has been removed from shopping list.
+>>> Please enter the id of the goods to remove: Item 0 not found in shopping list.
+>>> Shoppinglist has been cleared successfully.
+>>> Unknown command: ************************************
+Enter "help" to show available commands.
+>>> Please enter the id of the goods to add: Please enter the amount of the goods to add: success
+>>> Please enter the receiver's name: Please enter the receiver's address: Please enter the receiver's phone number: Do you want to remove these items from shopping list? (y/n): 
+Shoppinglist has been cleared successfully.
+Order summary:1.5
+Order created successfully. Please pay for it. Y/N: 
+Payment successful.
+>>> Please enter the receiver's name: Please enter the receiver's address: Please enter the receiver's phone number: Order summary:50
+Order created successfully. Please pay for it. Y/N: 
+Payment successful.
+>>> Please enter the id of the order to change: No such order.
+>>> Unknown command: name2
+Enter "help" to show available commands.
+>>> Unknown command: add2
+Enter "help" to show available commands.
+>>> Unknown command: 1234311
+Enter "help" to show available commands.
+>>> Please enter the id of the order to remove: No such order.
+>>> ================================================================
+id:         30
+order_time: 2025-06-07 19:05:21
+paid_time:  2025-06-07 19:05:21
+receiver:   name
+address:    address
+phone:      12323432
+status:     PAID
+goods_id:   1
+name:       apple
+price:      1.5
+amount:     1
+total:      1.5
+================================================================
+id:         31
+order_time: 2025-06-07 19:05:21
+paid_time:  2025-06-07 19:05:21
+receiver:   name1
+address:    address1
+phone:      123234321
+status:     PAID
+goods_id:   11
+name:       paper
+price:      0.25
+amount:     200
+total:      50
+================================================================
+>>> Please enter the id of the order to check: ================================================================
+>>> Please enter the id of the order to remove: No such order.
+>>> Unknown command: ************************************
+Enter "help" to show available commands.
+>>> Logout successful.
+Please enter your username: Please enter your password: Login successful.
+Welcome admin!
+>>> Please enter the id of the goods to update: Please enter the new name of the goods(Press enter to skip): Please enter the new price of the goods(Press enter to skip): Please enter the new stock of the goods(Press enter to skip): Please enter the new description of the goods(Press enter to skip): Do you want to update the promotion tag? (y/n): Change discount? (y/n): Please enter new discount(Press enter to cancel discount): Please enter the end time(%Y-%m-%d %H:%M:%S, default one day): Change reduction? (y/n): Please enter new reduction(Press enter to cancel reduction): 
+spend: reduction: Please enter the end time(%Y-%m-%d %H:%M:%S, default one day): stackable? (y/n): Goods updated successfully.
+>>> Logout successful.
+Please enter your username: Please enter your password: Filename has been changed to data/user.sl
+Filename has been changed to data/user.ol
+Login successful.
+>>> Please enter the receiver's name: Please enter the receiver's address: Please enter the receiver's phone number: Order summary:93.75
+Order created successfully. Please pay for it. Y/N: 
+Payment successful.
+>>> Please enter the id of the goods to add: Please enter the amount of the goods to add: success
+>>> Please enter the id of the goods to add: Please enter the amount of the goods to add: success
+>>> Please enter the receiver's name: Please enter the receiver's address: Please enter the receiver's phone number: Do you want to remove these items from shopping list? (y/n): 
+Shoppinglist has been cleared successfully.
+Order summary:131.25
+Order created successfully. Please pay for it. Y/N: 
+Payment failed. Order cancelled.
+>>> Unknown command: ************************************
+Enter "help" to show available commands.
+>>> System has exited.

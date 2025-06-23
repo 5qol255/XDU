@@ -1,0 +1,45 @@
+int checkHorSym(char **pA, int n)
+<%
+    int i, j;
+    for (i = 0; i < n; ++i)
+        for (j = 0; j < n; ++j)
+            if (pA<:i:><:j:> != pA<:i:><:n - 1 - j:>)
+                return 0;
+    return 1;
+%>
+int checkVerSym(char **pA, int n)
+<%
+    int i, j;
+    for (i = 0; i < n; ++i)
+        for (j = 0; j < n; ++j)
+            if (pA<:i:><:j:> != pA<:n - 1 - i:><:j:>)
+                return 0;
+    return 1;
+%>
+int checkDiaSym(char **pA, int n)
+<%
+    int i, j;
+    for (i = 1; i < n; ++i)
+        for (j = i - 1; j < n; ++j)
+            if (pA<:i:><:j:> != pA<:j:><:i:>)
+                return 0;
+    return 1;
+%>
+int checkAntiDiaSym(char **pA, int n)
+<%
+    int i, j;
+    for (i = 0; i < n - 1; ++i)
+        for (j = 0; j < n - i - 1; ++j)
+            if (pA<:i:><:j:> != pA<:n - 1 - j:><:n - 1 - i:>)
+                return 0;
+    return 1;
+%>
+int checkRotSym(char **pA, int n)
+<%
+    int i, j;
+    for (i = 0; i < n; ++i)
+        for (j = 0; j < n; ++j)
+            if (pA<:i:><:j:> != pA<:n - 1 - i:><:n - 1 - j:>)
+                return 0;
+    return 1;
+%>
