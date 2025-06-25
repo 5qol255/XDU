@@ -2,3 +2,6 @@
 .vscode/settings.json
 .vscode/tasks.json
 .vscode/launch.json
+./tmp/
+tmp/pic_to_base64.py
+tmp/img_base64.txt
