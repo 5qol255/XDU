@@ -1,0 +1,3 @@
+[submodule "编译原理/上机/src"]
+	path = 编译原理/上机/src
+	url = https://github.com/5qol255/Interpreter
