@@ -1,0 +1,210 @@
+mysql> # 建库
+mysql> create database employee3_20;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> # 切換至employee3_20
+mysql> use employee3_20;
+Database changed
+mysql> ## 建表employee
+mysql> create table employee(
+    -> employee_name char(30) not null,
+    -> street char(30),
+    -> city char (30),
+    -> primary key(employee_name)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ## 插入数据employee
+mysql> insert into emploYEE Values
+    -> ('John Smith', 'Maple Street 15', 'New York'),
+    -> ('Emily Davis', 'Oak Avenue 22', 'Los Angeles'),
+    -> ('Michael Brown', 'Pine Road 30', 'Chicago'),
+    -> ('Sarah Wilson', 'Cedar Lane 45', 'Houston'),
+    -> ('David Taylor', 'Birch Court 60', 'Phoenix'),
+    -> ('Jones', 'Main Street 10', 'Boston'),
+    -> ('Emma Johnson', 'Elm Drive 78', 'New York');
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> ## 建表company
+mysql> create table company(
+    -> company_name char(30) not NULL,
+    -> city char (30),
+    -> primary key(company_name)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ## 插入数据company
+mysql> INSERT inTO company VALUEs
+    -> ('Acme Technology Solutions', 'San Francisco'),
+    -> ('Goldman Sachs Investment Bank', 'New York'),
+    -> ('McKinsey & Company Consulting', 'Chicago'),
+    -> ('Walmart Retail Operations', 'Bentonville'),
+    -> ('Ford Motor Company Engineering', 'Dearborn'),
+    -> ('CNN Media Productions', 'Atlanta'),
+    -> ('Microsoft Cloud Division', 'Redmond'),
+    -> ('JPMorgan Chase Finance', 'Boston'),
+    -> ('First Bank Corporation', 'New York'),
+    -> ('Small Bank Corporation', 'Chicago');
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> ## 建表works
+mysql> create table works(
+    -> employee_name char(30) not null,
+    -> company_name char(30) not null,
+    -> salary decimal(12,2),
+    -> primary key(employee_name),
+    -> FOREIGN KEY (employee_name) REFERENCES employee(employee_name),
+    -> FOREIGN KEY(company_name) REFERENCES company(company_name)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ## 插入数据works
+mysql> INSERT INTO works VALUES
+    -> ('John Smith', 'Acme Technology Solutions', 78500.00),
+    -> ('Emily Davis', 'Goldman Sachs Investment Bank', 92000.00),
+    -> ('Michael Brown', 'McKinsey & Company Consulting', 81000.00),
+    -> ('Sarah Wilson', 'Walmart Retail Operations', 62000.00),
+    -> ('David Taylor', 'Ford Motor Company Engineering', 73500.00),
+    -> ('Jones', 'First Bank Corporation', 80000.00),
+    -> ('Emma Johnson', 'CNN Media Productions', 58000.00);
+Query OK, 7 rows affected (0.00 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> ## 建表manages
+mysql> create table manages(
+    -> employee_name char(30)not null,
+    -> manager_name char(30)not null,
+    -> primary key(employee_name),
+    -> FOREIGN KEY (employee_name) REFERENCES employee(employee_name)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ## 插入数据manages
+mysql> insert into manages values
+    -> ('John Smith', 'Michael Brown'),
+    -> ('Emily Davis', 'Michael Brown'),
+    -> ('Sarah Wilson', 'Emily Davis'),
+    -> ('David Taylor', 'John Smith'),
+    -> ('Jones','Emily Davis'),
+    -> ('Emma Johnson', 'Sarah Wilson');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> -- 查询a
+mysql> SELECT employee.employee_name, employee.city
+    -> FROM employee JOIN works ON employee.employee_name = works.employee_name
+    -> WHERE works.company_name = 'First Bank Corporation';
++---------------+--------+
+| employee_name | city   |
++---------------+--------+
+| Jones         | Boston |
++---------------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- 查询b
+mysql> select employee.employee_name, employee.street, employee.city
+    -> from employee join works on employee.employee_name = works.employee_name
+    -> where works.company_name = 'First Bank Corporation' and works.salary > 10000;
++---------------+----------------+--------+
+| employee_name | street         | city   |
++---------------+----------------+--------+
+| Jones         | Main Street 10 | Boston |
++---------------+----------------+--------+
+1 row in set (0.00 sec)
+
+mysql> -- c
+mysql> SELECT employee.employee_name
+    -> FROM employee JOIN works ON employee.employee_name = works.employee_name
+    -> WHERE not works.company_name = 'First Bank Corporation';
++---------------+
+| employee_name |
++---------------+
+| David Taylor  |
+| Emily Davis   |
+| Emma Johnson  |
+| John Smith    |
+| Michael Brown |
+| Sarah Wilson  |
++---------------+
+6 rows in set (0.00 sec)
+
+mysql> -- d
+mysql> SELECT employee.employee_name
+    -> FROM employee JOIN works ON employee.employee_name = works.employee_name
+    -> WHERE works.salary >
+    -> (select max(salary) from works where company_name = 'Small Bank Corporation');
+Empty set (0.00 sec)
+
+mysql> -- e
+mysql> select city from company
+    -> where city in(
+    ->     select city from company
+    ->     where company_name = 'Small Bank Corporation'
+    -> );
++---------+
+| city    |
++---------+
+| Chicago |
+| Chicago |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> -- f
+mysql> SELECT company_name, COUNT(employee_name) AS employee_count
+    -> FROM works
+    -> GROUP BY company_name
+    -> HAVING employee_count = (
+    ->     SELECT MAX(emp_count)
+    ->     FROM (
+    ->         SELECT COUNT(employee_name) AS emp_count
+    ->         FROM works
+    ->         GROUP BY company_name
+    ->     ) AS temp
+    -> );
++--------------------------------+----------------+
+| company_name                   | employee_count |
++--------------------------------+----------------+
+| Acme Technology Solutions      |              1 |
+| CNN Media Productions          |              1 |
+| First Bank Corporation         |              1 |
+| Ford Motor Company Engineering |              1 |
+| Goldman Sachs Investment Bank  |              1 |
+| McKinsey & Company Consulting  |              1 |
+| Walmart Retail Operations      |              1 |
++--------------------------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> -- g
+mysql> SELECT company_name/*AVG(salary) AS average_salary*/
+    -> FROM works
+    -> where
+    ->     not company_name = 'First Bank Corporation' and
+    ->     salary > (
+    ->         select avg(salary) from works
+    ->         where company_name = 'First Bank Corporation'
+    ->     );
++-------------------------------+
+| company_name                  |
++-------------------------------+
+| Goldman Sachs Investment Bank |
+| McKinsey & Company Consulting |
++-------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> /*GROUP BY company_name*/
+mysql> -- 3.10 a
+mysql> update employee
+    -> set city = 'Newtown'
+    -> where employee_name = 'Jones';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> -- 3.10 b
+mysql> update works
+    -> join manages on manages.manager_name = works.employee_name
+    -> set salary = if(salary*1.1<100000,salary*1.1,salary*1.03)
+    -> where company_name = 'First Bank Corporation';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
