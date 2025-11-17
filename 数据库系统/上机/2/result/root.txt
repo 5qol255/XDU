@@ -1,0 +1,103 @@
+mysql> # 创建视图 branch_detail，用于汇总支行的存款/贷款数据
+mysql> CREATE VIEW branch_detail AS
+    -> SELECT 
+    ->     b.branch_name,  -- 从支行表获取支行名称
+    ->     COALESCE(depositor_count, 0) AS depositor_count,  -- 存款客户数量（无数据时显示0）
+    ->     COALESCE(total_balance, 0) AS total_balance,     -- 存款总额（无数据时显示0）
+    ->     COALESCE(borrower_count, 0) AS borrower_count,   -- 贷款客户数量（无数据时显示0）
+    ->     COALESCE(total_loan, 0) AS total_loan            -- 贷款总额（无数据时显示0）
+    -> FROM branch b  -- 主表：所有支行
+    -> -- 左连接存款数据（按支行分组聚合）
+    -> LEFT JOIN (
+    ->     SELECT 
+    ->         branch_name,  -- 分组依据：支行名称
+    ->         COUNT(DISTINCT customer_name) AS depositor_count,  -- 去重统计客户数
+    ->         SUM(balance) AS total_balance  -- 汇总余额
+    ->     FROM account a  -- 存款账户表
+    ->     JOIN depositor d ON a.account_number = d.account_number  -- 关联存款人表
+    ->     GROUP BY branch_name  -- 按支行分组
+    -> ) depositor_data ON b.branch_name = depositor_data.branch_name  -- 连接条件
+    -> -- 左连接贷款数据（按支行分组聚合）
+    -> LEFT JOIN (
+    ->     SELECT 
+    ->         branch_name,  -- 分组依据：支行名称
+    ->         COUNT(DISTINCT customer_name) AS borrower_count,  -- 去重统计客户数
+    ->         SUM(amount) AS total_loan  -- 汇总贷款金额
+    ->     FROM loan l  -- 贷款表
+    ->     JOIN borrower br ON l.loan_number = br.loan_number  -- 关联借款人表
+    ->     GROUP BY branch_name  -- 按支行分组
+    -> ) borrower_data ON b.branch_name = borrower_data.branch_name;  -- 连接条件
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from branch_detail;
++-------------+-----------------+---------------+----------------+------------+
+| branch_name | depositor_count | total_balance | borrower_count | total_loan |
++-------------+-----------------+---------------+----------------+------------+
+| Brighton    |               2 |          1650 |              0 |          0 |
+| Downtown    |               1 |           500 |              3 |       3500 |
+| Mianus      |               1 |           700 |              1 |        500 |
+| North Town  |               0 |             0 |              0 |          0 |
+| Perryridge  |               1 |           400 |              2 |       2800 |
+| Pownal      |               0 |             0 |              0 |          0 |
+| Redwood     |               1 |           700 |              1 |       2000 |
+| Round Hill  |               1 |           350 |              1 |        900 |
++-------------+-----------------+---------------+----------------+------------+
+8 rows in set (0.01 sec)
+
+
+mysql> ## 比较有无索引查询
+mysql> -- 在account中插入大量数据
+
+（这里省略输出）
+
+mysql> -- 创建副本表
+mysql> CREATE TABLE account_copy AS
+    -> SELECT * FROM account;
+Query OK, 1008 rows affected (0.02 sec)
+Records: 1008  Duplicates: 0  Warnings: 0
+
+mysql> -- 创建索引
+mysql> ALTER TABLE account_copy ADD INDEX account_copy(account_number);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> -- 对比测试
+mysql> -- 有索引查询
+mysql> -- account 表（无索引查询）
+mysql> EXPLAIN SELECT * FROM account WHERE account_number = 'A-1001000';
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | account | NULL       | const | PRIMARY       | PRIMARY | 40      | const |    1 |   100.00 | NULL  |
++----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> -- account_copy表（有索引）
+mysql> EXPLAIN SELECT * FROM account_copy WHERE account_number = 'A-1001000';
++----+-------------+--------------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+| id | select_type | table        | partitions | type | possible_keys | key          | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+--------------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | account_copy | NULL       | ref  | account_copy  | account_copy | 40      | const |    1 |   100.00 | Using index condition |
++----+-------------+--------------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> CREATE ROLE branch_manager;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> -- 授予角色对 branch 表INSERT/UPDATE/DELETE的权限
+mysql> GRANT INSERT, UPDATE, DELETE ON bank019.branch TO branch_manager;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> -- 创建测试用户（银行经理账号）
+mysql> CREATE USER 'branch_manager_user'@'localhost' IDENTIFIED BY 'manager123';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> -- 将角色授权给测试用户
+mysql> GRANT branch_manager TO 'branch_manager_user'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> -- 立即生效权限
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> \q

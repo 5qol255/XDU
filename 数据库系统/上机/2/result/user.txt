@@ -1,0 +1,22 @@
+mysql> -- 激活角色
+mysql> set role branch_manager;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> use bank019;
+Database changed
+mysql> -- 测试
+mysql> insert into branch values
+    -> ('Brighton1111','Brooklyn111',71000001);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> UPDATE branch
+    -> SET assets = 114514
+    -> WHERE branch_name = 'Brighton1111';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from branch
+    -> where assets = 114514;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> \q
