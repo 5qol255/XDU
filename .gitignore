@@ -1,5 +1,2 @@
-./.vscode/
-.vscode/settings.json
-./tmp/
-tmp/pic_to_base64.py
-tmp/img_base64.txt
+.vscode
+.tools
