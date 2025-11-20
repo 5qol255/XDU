@@ -1,32 +1,32 @@
-mysql> # ´´½¨ÊÓÍ¼ branch_detail£¬ÓÃÓÚ»ã×ÜÖ§ÐÐµÄ´æ¿î/´û¿îÊý¾Ý
+mysql> # åˆ›å»ºè§†å›¾ branch_detailï¼Œç”¨äºŽæ±‡æ€»æ”¯è¡Œçš„å­˜æ¬¾/è´·æ¬¾æ•°æ®
 mysql> CREATE VIEW branch_detail AS
     -> SELECT 
-    ->     b.branch_name,  -- ´ÓÖ§ÐÐ±í»ñÈ¡Ö§ÐÐÃû³Æ
-    ->     COALESCE(depositor_count, 0) AS depositor_count,  -- ´æ¿î¿Í»§ÊýÁ¿£¨ÎÞÊý¾ÝÊ±ÏÔÊ¾0£©
-    ->     COALESCE(total_balance, 0) AS total_balance,     -- ´æ¿î×Ü¶î£¨ÎÞÊý¾ÝÊ±ÏÔÊ¾0£©
-    ->     COALESCE(borrower_count, 0) AS borrower_count,   -- ´û¿î¿Í»§ÊýÁ¿£¨ÎÞÊý¾ÝÊ±ÏÔÊ¾0£©
-    ->     COALESCE(total_loan, 0) AS total_loan            -- ´û¿î×Ü¶î£¨ÎÞÊý¾ÝÊ±ÏÔÊ¾0£©
-    -> FROM branch b  -- Ö÷±í£ºËùÓÐÖ§ÐÐ
-    -> -- ×óÁ¬½Ó´æ¿îÊý¾Ý£¨°´Ö§ÐÐ·Ö×é¾ÛºÏ£©
+    ->     b.branch_name,  -- ä»Žæ”¯è¡Œè¡¨èŽ·å–æ”¯è¡Œåç§°
+    ->     COALESCE(depositor_count, 0) AS depositor_count,  -- å­˜æ¬¾å®¢æˆ·æ•°é‡ï¼ˆæ— æ•°æ®æ—¶æ˜¾ç¤º0ï¼‰
+    ->     COALESCE(total_balance, 0) AS total_balance,     -- å­˜æ¬¾æ€»é¢ï¼ˆæ— æ•°æ®æ—¶æ˜¾ç¤º0ï¼‰
+    ->     COALESCE(borrower_count, 0) AS borrower_count,   -- è´·æ¬¾å®¢æˆ·æ•°é‡ï¼ˆæ— æ•°æ®æ—¶æ˜¾ç¤º0ï¼‰
+    ->     COALESCE(total_loan, 0) AS total_loan            -- è´·æ¬¾æ€»é¢ï¼ˆæ— æ•°æ®æ—¶æ˜¾ç¤º0ï¼‰
+    -> FROM branch b  -- ä¸»è¡¨ï¼šæ‰€æœ‰æ”¯è¡Œ
+    -> -- å·¦è¿žæŽ¥å­˜æ¬¾æ•°æ®ï¼ˆæŒ‰æ”¯è¡Œåˆ†ç»„èšåˆï¼‰
     -> LEFT JOIN (
     ->     SELECT 
-    ->         branch_name,  -- ·Ö×éÒÀ¾Ý£ºÖ§ÐÐÃû³Æ
-    ->         COUNT(DISTINCT customer_name) AS depositor_count,  -- È¥ÖØÍ³¼Æ¿Í»§Êý
-    ->         SUM(balance) AS total_balance  -- »ã×ÜÓà¶î
-    ->     FROM account a  -- ´æ¿îÕË»§±í
-    ->     JOIN depositor d ON a.account_number = d.account_number  -- ¹ØÁª´æ¿îÈË±í
-    ->     GROUP BY branch_name  -- °´Ö§ÐÐ·Ö×é
-    -> ) depositor_data ON b.branch_name = depositor_data.branch_name  -- Á¬½ÓÌõ¼þ
-    -> -- ×óÁ¬½Ó´û¿îÊý¾Ý£¨°´Ö§ÐÐ·Ö×é¾ÛºÏ£©
+    ->         branch_name,  -- åˆ†ç»„ä¾æ®ï¼šæ”¯è¡Œåç§°
+    ->         COUNT(DISTINCT customer_name) AS depositor_count,  -- åŽ»é‡ç»Ÿè®¡å®¢æˆ·æ•°
+    ->         SUM(balance) AS total_balance  -- æ±‡æ€»ä½™é¢
+    ->     FROM account a  -- å­˜æ¬¾è´¦æˆ·è¡¨
+    ->     JOIN depositor d ON a.account_number = d.account_number  -- å…³è”å­˜æ¬¾äººè¡¨
+    ->     GROUP BY branch_name  -- æŒ‰æ”¯è¡Œåˆ†ç»„
+    -> ) depositor_data ON b.branch_name = depositor_data.branch_name  -- è¿žæŽ¥æ¡ä»¶
+    -> -- å·¦è¿žæŽ¥è´·æ¬¾æ•°æ®ï¼ˆæŒ‰æ”¯è¡Œåˆ†ç»„èšåˆï¼‰
     -> LEFT JOIN (
     ->     SELECT 
-    ->         branch_name,  -- ·Ö×éÒÀ¾Ý£ºÖ§ÐÐÃû³Æ
-    ->         COUNT(DISTINCT customer_name) AS borrower_count,  -- È¥ÖØÍ³¼Æ¿Í»§Êý
-    ->         SUM(amount) AS total_loan  -- »ã×Ü´û¿î½ð¶î
-    ->     FROM loan l  -- ´û¿î±í
-    ->     JOIN borrower br ON l.loan_number = br.loan_number  -- ¹ØÁª½è¿îÈË±í
-    ->     GROUP BY branch_name  -- °´Ö§ÐÐ·Ö×é
-    -> ) borrower_data ON b.branch_name = borrower_data.branch_name;  -- Á¬½ÓÌõ¼þ
+    ->         branch_name,  -- åˆ†ç»„ä¾æ®ï¼šæ”¯è¡Œåç§°
+    ->         COUNT(DISTINCT customer_name) AS borrower_count,  -- åŽ»é‡ç»Ÿè®¡å®¢æˆ·æ•°
+    ->         SUM(amount) AS total_loan  -- æ±‡æ€»è´·æ¬¾é‡‘é¢
+    ->     FROM loan l  -- è´·æ¬¾è¡¨
+    ->     JOIN borrower br ON l.loan_number = br.loan_number  -- å…³è”å€Ÿæ¬¾äººè¡¨
+    ->     GROUP BY branch_name  -- æŒ‰æ”¯è¡Œåˆ†ç»„
+    -> ) borrower_data ON b.branch_name = borrower_data.branch_name;  -- è¿žæŽ¥æ¡ä»¶
 Query OK, 0 rows affected (0.01 sec)
 
 mysql> select * from branch_detail;
@@ -45,25 +45,25 @@ mysql> select * from branch_detail;
 8 rows in set (0.01 sec)
 
 
-mysql> ## ±È½ÏÓÐÎÞË÷Òý²éÑ¯
-mysql> -- ÔÚaccountÖÐ²åÈë´óÁ¿Êý¾Ý
+mysql> ## æ¯”è¾ƒæœ‰æ— ç´¢å¼•æŸ¥è¯¢
+mysql> -- åœ¨accountä¸­æ’å…¥å¤§é‡æ•°æ®
 
-£¨ÕâÀïÊ¡ÂÔÊä³ö£©
+ï¼ˆè¿™é‡Œçœç•¥è¾“å‡ºï¼‰
 
-mysql> -- ´´½¨¸±±¾±í
+mysql> -- åˆ›å»ºå‰¯æœ¬è¡¨
 mysql> CREATE TABLE account_copy AS
     -> SELECT * FROM account;
 Query OK, 1008 rows affected (0.02 sec)
 Records: 1008  Duplicates: 0  Warnings: 0
 
-mysql> -- ´´½¨Ë÷Òý
+mysql> -- åˆ›å»ºç´¢å¼•
 mysql> ALTER TABLE account_copy ADD INDEX account_copy(account_number);
 Query OK, 0 rows affected (0.02 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> -- ¶Ô±È²âÊÔ
-mysql> -- ÓÐË÷Òý²éÑ¯
-mysql> -- account ±í£¨ÎÞË÷Òý²éÑ¯£©
+mysql> -- å¯¹æ¯”æµ‹è¯•
+mysql> -- æœ‰ç´¢å¼•æŸ¥è¯¢
+mysql> -- account è¡¨ï¼ˆæ— ç´¢å¼•æŸ¥è¯¢ï¼‰
 mysql> EXPLAIN SELECT * FROM account WHERE account_number = 'A-1001000';
 +----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
 | id | select_type | table   | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |
@@ -72,7 +72,7 @@ mysql> EXPLAIN SELECT * FROM account WHERE account_number = 'A-1001000';
 +----+-------------+---------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
 1 row in set, 1 warning (0.00 sec)
 
-mysql> -- account_copy±í£¨ÓÐË÷Òý£©
+mysql> -- account_copyè¡¨ï¼ˆæœ‰ç´¢å¼•ï¼‰
 mysql> EXPLAIN SELECT * FROM account_copy WHERE account_number = 'A-1001000';
 +----+-------------+--------------+------------+------+---------------+--------------+---------+-------+------+----------+-----------------------+
 | id | select_type | table        | partitions | type | possible_keys | key          | key_len | ref   | rows | filtered | Extra                 |
@@ -84,19 +84,19 @@ mysql> EXPLAIN SELECT * FROM account_copy WHERE account_number = 'A-1001000';
 mysql> CREATE ROLE branch_manager;
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> -- ÊÚÓè½ÇÉ«¶Ô branch ±íINSERT/UPDATE/DELETEµÄÈ¨ÏÞ
+mysql> -- æŽˆäºˆè§’è‰²å¯¹ branch è¡¨INSERT/UPDATE/DELETEçš„æƒé™
 mysql> GRANT INSERT, UPDATE, DELETE ON bank019.branch TO branch_manager;
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> -- ´´½¨²âÊÔÓÃ»§£¨ÒøÐÐ¾­ÀíÕËºÅ£©
+mysql> -- åˆ›å»ºæµ‹è¯•ç”¨æˆ·ï¼ˆé“¶è¡Œç»ç†è´¦å·ï¼‰
 mysql> CREATE USER 'branch_manager_user'@'localhost' IDENTIFIED BY 'manager123';
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> -- ½«½ÇÉ«ÊÚÈ¨¸ø²âÊÔÓÃ»§
+mysql> -- å°†è§’è‰²æŽˆæƒç»™æµ‹è¯•ç”¨æˆ·
 mysql> GRANT branch_manager TO 'branch_manager_user'@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> -- Á¢¼´ÉúÐ§È¨ÏÞ
+mysql> -- ç«‹å³ç”Ÿæ•ˆæƒé™
 mysql> FLUSH PRIVILEGES;
 Query OK, 0 rows affected (0.00 sec)
 
