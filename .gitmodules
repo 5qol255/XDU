@@ -1,3 +1,6 @@
 [submodule "编译原理/上机/src"]
 	path = 编译原理/上机/src
 	url = https://github.com/5qol255/Interpreter
+[submodule "数据库系统/上机/4"]
+	path = 数据库系统/上机/4
+	url = https://github.com/5qol255/TravelEase
