@@ -4,3 +4,6 @@
 [submodule "数据库系统/上机/4"]
 	path = 数据库系统/上机/4
 	url = https://github.com/5qol255/TravelEase
+[submodule "智能化软件开发实践/src"]
+	path = 智能化软件开发实践/src
+	url = https://github.com/5qol255/PositionX
